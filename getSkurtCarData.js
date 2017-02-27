@@ -1,19 +1,17 @@
-function getSkurtCarData(id) {
+function getSkurtCarData(id, callback) {
   var http = require("http");
   var url = "http://skurt-interview-api.herokuapp.com/carStatus/" + id;
 
   var request = http.get(url, function (response) {
-    var buffer = "", 
-        route;
+    var buffer = "";
     response.on("data", function (chunk) {
       buffer += chunk;
     }); 
     response.on("end", function (err) {
+      //return buffer;
       callback(buffer);
     }); 
   });
-
-  console.log('request', request);
 }
 
 module.exports = getSkurtCarData;
