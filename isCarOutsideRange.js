@@ -4,7 +4,7 @@ function isCarOutsideRange(locationData) {
   carData = features[0];
   polygonData = features[1];
 
-  var car_loc = carData.geometry.coordinates;
+  var carLoc = carData.geometry.coordinates;
   var numHorzRightCrossings = 0;
   var coordinates = polygonData.geometry.coordinates[0];
   var j = 0;
@@ -31,29 +31,29 @@ function isCarOutsideRange(locationData) {
     // x_intercept = (y_relative / slope) + x_shift; as we don't know 'b'
     var slope = (c_2[1] - c_1[1]) / (c_2[0] - c_1[0]);
 
-    return car_loc[0] <= ((car_loc[1] - c_1[1]) / slope + c_1[0]);
+    return carLoc[0] <= ((carLoc[1] - c_1[1]) / slope + c_1[0]);
   }
   
   function carLocLeftOfEdgeXMax() {
-    return car_loc[0] <= Math.max(c_1[0], c_2[0]);
+    return carLoc[0] <= Math.max(c_1[0], c_2[0]);
   }
   
   function carLocWithinEdgeYBounds() {
-    return car_loc[1] >= Math.min(c_1[1], c_2[1])
-      && car_loc[1] <= Math.max(c_1[1], c_2[1]);
+    return carLoc[1] >= Math.min(c_1[1], c_2[1])
+      && carLoc[1] <= Math.max(c_1[1], c_2[1]);
   }
 
   function orderPolygonAndCarLocFromFeatures() {
     if (features.length !== 2) {
       throw new TypeError('API missing either Point or Polygon Data.');
     }
-    var feat1_type = features[0].geometry.type;
-    var feat2_type = features[1].geometry.type;
-    if (feat1_type == "Point" && feat2_type == "Polygon") {
+    var feat1Type = features[0].geometry.type;
+    var feat2Type = features[1].geometry.type;
+    if (feat1Type == "Point" && feat2Type == "Polygon") {
       return;
     }
 
-    if (feat2_type !== "Point" || feat1_type !== "Polygon") {
+    if (feat2Type !== "Point" || feat1Type !== "Polygon") {
       throw new TypeError('API returned incorrect geometry types for car.');
     }
 

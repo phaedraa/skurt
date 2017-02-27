@@ -8,7 +8,6 @@ function getSkurtCarData(id, callback) {
       buffer += chunk;
     }); 
     response.on("end", function (err) {
-      //return buffer;
       callback(buffer);
     }); 
   });
