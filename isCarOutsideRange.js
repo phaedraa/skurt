@@ -16,10 +16,6 @@ function isCarOutsideRange(locationData) {
     // 1. check that car loc is within y bounds of edge 
     // 2. and that car x coord is at least <= to the max x coord of the edge
     // 3. and that it is to the left of the horizontal interception of car loc y
-    var a = carLocWithinEdgeYBounds();
-    var b = carLocLeftOfEdgeXMax();
-    var c = carXLocLeftOfXIntercept();
-
     if (
       carLocWithinEdgeYBounds() && carLocLeftOfEdgeXMax() &&
       carXLocLeftOfXIntercept()
@@ -57,7 +53,7 @@ function isCarOutsideRange(locationData) {
       return;
     }
 
-    if (feat2_type !== "Point" && feat1_type !== "Polygon") {
+    if (feat2_type !== "Point" || feat1_type !== "Polygon") {
       throw new TypeError('API returned incorrect geometry types for car.');
     }
 
