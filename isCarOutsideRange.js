@@ -65,3 +65,5 @@ function isCarOutsideRange(locationData) {
     features = [features[1], features[0]];
   }
 }
+
+module.exports = isCarOutsideRange;
