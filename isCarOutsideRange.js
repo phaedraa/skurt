@@ -44,6 +44,7 @@ function isCarOutsideRange(locationData) {
   }
 
   function orderPolygonAndCarLocFromFeatures() {
+    console.log('features', features);
     if (features.length !== 2) {
       throw new TypeError('API missing either Point or Polygon Data.');
     }

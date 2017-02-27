@@ -9,6 +9,7 @@ function notifyIfDriverOutOfRange() {
 }
 
 function handleCarData(carData) {
+  console.log('data', carData);
   if (isCarOutsideRange(JSON.parse(carData))) {
     // send email
     console.log('now send email!');
