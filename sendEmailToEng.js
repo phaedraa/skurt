@@ -6,21 +6,22 @@ function sendEmailToEng(carLoc, carID) {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'foodandart100@gmail.com',
-        pass: 'SkurtTechQuestion'
+      // test email account
+      user: 'foodandart100@gmail.com',
+      pass: 'SkurtTechQuestion'
     }
   });
   
-  // setup email data with unicode symbols
+  var coordinates = '[' + carLoc[0] + ', ' + carLoc[1] + ']';
+  var message = 'Car ' + carID + ' is out of bounds at: ' + coordinates;
   let mailOptions = {
-    from: '"Phashizzle" <foodandart100@gmail.com>', // sender address
-    to: 'phaedra.a.r@gmail.com', // list of receivers
-    subject: 'Car ' + carID + ' Out of Bounds! ✔', // Subject line
-    text: 'Car ' + carID + ' is out of bounds at: ' + carLoc, // plain text body
-    html: '<b>Hello world ?</b>' // html body
+    from: '"Phashizzle" <foodandart100@gmail.com>',
+    to: 'phaedra.a.r@gmail.com',
+    subject: 'ALERT: OUT OF BOUNDS EXCEPTION: Car: ' + carID,
+    text: message,
+    html: '<b>' + message + '</b>'
   };
   
-  // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
         return console.log(error);

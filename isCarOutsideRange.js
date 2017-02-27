@@ -1,8 +1,6 @@
-function isCarOutsideRange(locationData) {
-  var features = locationData.features;
-  orderPolygonAndCarLocFromFeatures();
-  carData = features[0];
-  polygonData = features[1];
+function isCarOutsideRange(carAndPolygonFeatures) {
+  carData = carAndPolygonFeatures[0];
+  polygonData = carAndPolygonFeatures[1];
 
   var carLoc = carData.geometry.coordinates;
   var numHorzRightCrossings = 0;
@@ -10,10 +8,11 @@ function isCarOutsideRange(locationData) {
   var j = 0;
   for (var i = 0; i < coordinates.length - 1; i++) {
     j++;
+    // Two coordinates that form a single polygonal edge
     var c_1 = coordinates[i];
     var c_2 = coordinates[j];
-    // check that car location horizontal crossing intercepts with current edge
-    // 1. check that car loc is within y bounds of edge 
+    // check that car location horizontal crossing intercepts with current edge by:
+    // 1. checking that car loc is within y bounds of edge 
     // 2. and that car x coord is at least <= to the max x coord of the edge
     // 3. and that it is to the left of the horizontal interception of car loc y
     if (
@@ -24,6 +23,8 @@ function isCarOutsideRange(locationData) {
     }
   }
 
+  // Using even-odd algorithm rule, we know that even number of crossings
+  // ensures that our point is outside the polygon, and odd is within.
   return numHorzRightCrossings % 2 == 0;
 
   function carXLocLeftOfXIntercept() {
@@ -41,25 +42,6 @@ function isCarOutsideRange(locationData) {
   function carLocWithinEdgeYBounds() {
     return carLoc[1] >= Math.min(c_1[1], c_2[1])
       && carLoc[1] <= Math.max(c_1[1], c_2[1]);
-  }
-
-  function orderPolygonAndCarLocFromFeatures() {
-    console.log('features', features);
-    if (features.length !== 2) {
-      throw new TypeError('API missing either Point or Polygon Data.');
-    }
-    var feat1Type = features[0].geometry.type;
-    var feat2Type = features[1].geometry.type;
-    if (feat1Type == "Point" && feat2Type == "Polygon") {
-      return;
-    }
-
-    if (feat2Type !== "Point" || feat1Type !== "Polygon") {
-      throw new TypeError('API returned incorrect geometry types for car.');
-    }
-
-    // swap
-    features = [features[1], features[0]];
   }
 }
 

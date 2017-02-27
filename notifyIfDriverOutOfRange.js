@@ -1,19 +1,19 @@
 const NUM_CARS = 11;
 var getSkurtCarData = require('./getSkurtCarData.js');
 var isCarOutsideRange = require('./isCarOutsideRange.js');
+var sendEmailToEng = require('./sendEmailToEng.js');
+var getOrderedCarLocAndPolygonFromFeatures = require('./getOrderedCarLocAndPolygonFromFeatures');
 
 function notifyIfDriverOutOfRange() {
   for (var carID = 1; carID <= NUM_CARS; carID++) {
-    getSkurtCarData(carID, handleCarData);
+    getSkurtCarData(carID, checkCarLocation);
   }
 }
 
-function handleCarData(carData) {
-  console.log('data', carData);
-  if (isCarOutsideRange(JSON.parse(carData))) {
-    // send email
-    console.log('now send email!');
-    console.log('data', carData);
+function checkCarLocation(carData) {
+  features = getOrderedCarLocAndPolygonFromFeatures(JSON.parse(carData).features);
+  if (isCarOutsideRange(features)) {
+    sendEmailToEng(features[0].geometry.coordinates, features[0].properties.id)
   }
 }
 

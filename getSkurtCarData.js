@@ -9,10 +9,8 @@ function getSkurtCarData(id, callback) {
       buffer += chunk;
     }); 
     response.on("end", function (err) {
-      console.log('buffer2:', buffer)
       callback(buffer);
-    }); 
-    //callback(buffer);
+    });
   });
 }
 
