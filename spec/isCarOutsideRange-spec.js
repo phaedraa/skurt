@@ -4,27 +4,6 @@ var getSkurtCarData = require('../getSkurtCarData.js');
 const TEST_CAR_ID = 11;
 
 describe("isCarOutsideRange function", function() {
-  var featuresPass = [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-118.263311219348, 34.0654997817231]
-      },
-      "properties": {
-        "id": 2
-      }
-    }, 
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [[[-118.48548889160156,34.05550388259354],[-118.33786010742186,34.10839345928985],[-118.267822265625,34.11692094207864],[-118.20327758789062,34.07143110146333],[-118.18748474121094,34.0213640496411],[-118.4710693359375,34.00030430441023],[-118.48548889160156,34.05550388259354]]]
-      },
-      "properties": {}
-    }
-  ];
-
   it('Expect test car to always be outside range', function() {
     getSkurtCarData(TEST_CAR_ID, function (data) {
       expect(isCarOutsideRange(data)).toEqual(false);
@@ -166,11 +145,14 @@ describe("isCarOutsideRange function", function() {
       }
     },
   ];
-  console.log(insidePoints);
+
   for (var i = 0; i < insidePoints.length; i++) {
+    testPointsInsidePolygon([insidePoints[i], complexPolygon]);
+  }
+
+  function testPointsInsidePolygon(data) {
     it('Expect point to be inside', function() {
-      console.log('features: ', insidePoints[0]);
-      expect(isCarOutsideRange([insidePoints[i], complexPolygon])).toEqual(false);
+      expect(isCarOutsideRange(data)).toEqual(false);
     });
   }
 
@@ -242,9 +224,14 @@ describe("isCarOutsideRange function", function() {
       }
     }
   ];
-  for (var o = 0; o < insidePoints.length; o++) {
+
+  for (var o = 0; o < outsidePoints.length; o++) {
+    testPointsOutsidePolygon([outsidePoints[o], complexPolygon]);
+  }
+
+  function testPointsOutsidePolygon(data) {
     it('Expect point to be outside', function() {
-      expect(isCarOutsideRange([outsidePoints[o], complexPolygon])).toEqual(true);
+      expect(isCarOutsideRange(data)).toEqual(true);
     });
   }
 });
