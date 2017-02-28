@@ -21,13 +21,15 @@ describe("isCarOutsideRange function", function() {
             -118.070068359375,
             34.043556504127444
           ],
+          // horizontal edge, coord 1
           [
             -118.07418823242186,
             34.07768740409027
           ],
+          // horizontal edge, coord 2
           [
             -118.12911987304688,
-            34.07882486401267
+            34.07768740409027
           ],
           [
             -118.14559936523438,
@@ -78,17 +80,7 @@ describe("isCarOutsideRange function", function() {
     }
   };
   var insidePoints = [
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.004150390625,
-          34.06574315265719
-        ]
-      }
-    },
+    // on horizontal edge
     {
       "type": "Feature",
       "properties": {},
@@ -96,21 +88,11 @@ describe("isCarOutsideRange function", function() {
         "type": "Point",
         "coordinates": [
           -118.10646057128905,
-          34.076549928891744
+          34.07768740409027
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -118.08586120605469,
-          33.963294809320224
-        ]
-      }
-    },
+    // left of x_max, passes 1 edge
     {
       "type": "Feature",
       "properties": {},
@@ -122,6 +104,7 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // passes 3 edges, 2 of which are convex
     {
       "type": "Feature",
       "properties": {},
@@ -145,6 +128,30 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // passes through 3 edges, 2 of which form a convex apex
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.01856994628906,
+          33.96500329452545
+        ]
+      }
+    },
+    // passes through vertex and edge, equalling 3 total passes
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.08860778808592,
+          34.01738017414994
+        ]
+      }
+    }
   ];
 
   for (var i = 0; i < insidePoints.length; i++) {
@@ -158,6 +165,8 @@ describe("isCarOutsideRange function", function() {
   }
 
   var outsidePoints = [
+    // outside NE edge, to the lower right (within x & y bounds),
+    // passing 0 edges
     {
       "type": "Feature",
       "properties": {},
@@ -169,6 +178,7 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // outside 3-sided concave section, passing 2 edges
     {
       "type": "Feature",
       "properties": {},
@@ -180,6 +190,7 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // below polygon
     {
       "type": "Feature",
       "properties": {},
@@ -191,6 +202,7 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // outside concave vertex, passing 2 edges
     {
       "type": "Feature",
       "properties": {},
@@ -202,6 +214,7 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // left of vertex, crossing 4 edges
     {
       "type": "Feature",
       "properties": {},
@@ -213,6 +226,7 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // left of polygon
     {
       "type": "Feature",
       "properties": {},
@@ -221,6 +235,18 @@ describe("isCarOutsideRange function", function() {
         "coordinates": [
           -118.15109252929686,
           34.022502265437836
+        ]
+      }
+    },
+    // above max y plane of polygon
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.02474975585936,
+          34.10498222546687
         ]
       }
     }
