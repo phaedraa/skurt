@@ -5,6 +5,7 @@ function getOrderedCarLocAndPolygonFromFeatures(features) {
   if (features.length !== 2) {
     throw new TypeError('API missing either Point or Polygon Data.');
   }
+
   var feat1Type = features[0].geometry.type;
   var feat2Type = features[1].geometry.type;
   if (feat1Type == "Point" && feat2Type == "Polygon") {
@@ -24,6 +25,12 @@ function getOrderedCarLocAndPolygonFromFeatures(features) {
   function validatePolygonAndPoint(polygonCoordinates, point) {
     if (polygonCoordinates.length < 3) {
       throw new TypeError('At least 3 coordinates are needed to create a polygon.');
+    }
+
+    for (var coord = 0; coord < polygonCoordinates.length; coord++) {
+      if (polygonCoordinates[coord].length !== 2) {
+        throw new TypeError('Polygon coordinate requires x and y values.');
+      }
     }
 
     if (point.length !== 2) {
