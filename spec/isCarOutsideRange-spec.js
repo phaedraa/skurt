@@ -133,6 +133,7 @@ describe("isCarOutsideRange function", function() {
         ]
       }
     },
+    // vertex of polygon
     {
       "type": "Feature",
       "properties": {},

@@ -11,6 +11,10 @@ function isCarOutsideRange(carAndPolygonFeatures) {
     // Two coordinates that form a single polygonal edge
     var c_1 = coordinates[i];
     var c_2 = coordinates[j];
+    // If a vertex, don't double count.
+    if (c_1[0] == carLoc[0] && c_1[1] == carLoc[1]) {
+      numHorzRightCrossings--;
+    }
     // check that car location horizontal crossing intercepts with current edge by:
     // 1. checking that car loc is within y bounds of edge 
     // 2. and that car x coord is at least <= to the max x coord of the edge
@@ -22,7 +26,6 @@ function isCarOutsideRange(carAndPolygonFeatures) {
       numHorzRightCrossings++;
     }
   }
-
   // Using even-odd algorithm rule, we know that even number of crossings
   // ensures that our point is outside the polygon, and odd is within.
   return numHorzRightCrossings % 2 == 0;
