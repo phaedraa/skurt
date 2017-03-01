@@ -2,7 +2,6 @@
 const nodemailer = require('nodemailer');
 
 function sendEmailToEng(text, subject) {
-  // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -13,7 +12,7 @@ function sendEmailToEng(text, subject) {
   });
   
   let mailOptions = {
-    from: '"Phashizzle" <foodandart100@gmail.com>',
+    from: '"Phaedra Randolph" <foodandart100@gmail.com>',
     to: 'phaedra.a.r@gmail.com',
     subject: subject,
     text: text,

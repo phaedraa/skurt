@@ -1,7 +1,6 @@
 function isCarOutsideRange(carAndPolygonFeatures) {
-  carData = carAndPolygonFeatures[0];
-  polygonData = carAndPolygonFeatures[1];
-
+  var carData = carAndPolygonFeatures[0];
+  var polygonData = carAndPolygonFeatures[1];
   var carLoc = carData.geometry.coordinates;
   var numHorzRightCrossings = 0;
   var coordinates = polygonData.geometry.coordinates[0];
@@ -17,7 +16,7 @@ function isCarOutsideRange(carAndPolygonFeatures) {
     // 3. and that it is to the left of the horizontal interception of car loc y
     if (carLocWithinEdgeYBounds() && carLocLeftOfEdgeXMax()) {
       var x_intercept = getCarXHorzInterceptWithEdge();
-      // car is on edge or vertex and is thus counted as 'inside' bounds
+      // If car is on edge or vertex and is thus counted as 'inside' bounds
       if (carLoc[0] == x_intercept) {
         return false;
       }

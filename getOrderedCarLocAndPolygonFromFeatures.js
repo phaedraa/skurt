@@ -12,14 +12,13 @@ function getOrderedCarLocAndPolygonFromFeatures(features) {
     validatePolygonAndPoint(features[1].geometry.coordinates[0], features[0].geometry.coordinates)
     return features;
   }
-
+  
   if (feat2Type !== "Point" || feat1Type !== "Polygon") {
     throw new TypeError('API returned incorrect geometry types for car.');
   }
 
   // validate and swap
   validatePolygonAndPoint(features[0].geometry.coordinates[0], features[1].geometry.coordinates)
-
   return [features[1], features[0]];
 
   function validatePolygonAndPoint(polygonCoordinates, point) {

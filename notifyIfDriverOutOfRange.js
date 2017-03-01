@@ -12,10 +12,9 @@ function notifyIfDriverOutOfRange() {
 }
 
 function validateCarLocation(carData) {
-  var data = JSON.parse(carData);
-  if (!data) {
+  if (!carData || !JSON.parse(carData)) {
     sendEmailToEng(
-      'API Failure: Expected object, but received: ' + data,
+      'API Failure: Expected object, but received: ' + carData,
       'ALERT: API Failure'
     );
   }
@@ -26,10 +25,9 @@ function validateCarLocation(carData) {
   if (isCarOutsideRange(features)) {
     var carID = features[0].properties.id;
     var carLoc = features[0].geometry.coordinates;
-    var coordinates = '[' 
+    var coordinates = '[' + carLoc[0] + ', ' + carLoc[1] + ']';
     sendEmailToEng(
-      'Car ' + carID + ' is out of bounds at: [' + carLoc[0] + ', ' +
-      carLoc[1] + ']',
+      'Car ' + carID + ' is out of bounds at: ' + coordinates,
       'ALERT: OUT OF BOUNDS EXCEPTION for Car: ' + carID
     );
   }
