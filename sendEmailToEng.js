@@ -1,7 +1,7 @@
 'use strict';
 const nodemailer = require('nodemailer');
 
-function sendEmailToEng(carLoc, carID) {
+function sendEmailToEng(text, subject) {
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -12,19 +12,17 @@ function sendEmailToEng(carLoc, carID) {
     }
   });
   
-  var coordinates = '[' + carLoc[0] + ', ' + carLoc[1] + ']';
-  var message = 'Car ' + carID + ' is out of bounds at: ' + coordinates;
   let mailOptions = {
     from: '"Phashizzle" <foodandart100@gmail.com>',
     to: 'phaedra.a.r@gmail.com',
-    subject: 'ALERT: OUT OF BOUNDS EXCEPTION: Car: ' + carID,
-    text: message,
-    html: '<b>' + message + '</b>'
+    subject: subject,
+    text: text,
+    html: '<b>' + text + '</b>'
   };
   
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-        return console.log(error);
+      throw new Error('Failed to send email: ' + error.message);
     }
     console.log('Message %s sent: %s', info.messageId, info.response);
   });

@@ -1,7 +1,7 @@
+var getOrderedCarLocAndPolygonFromFeatures = require('./getOrderedCarLocAndPolygonFromFeatures');
 var getSkurtCarData = require('./getSkurtCarData.js');
 var isCarOutsideRange = require('./isCarOutsideRange.js');
 var sendEmailToEng = require('./sendEmailToEng.js');
-var getOrderedCarLocAndPolygonFromFeatures = require('./getOrderedCarLocAndPolygonFromFeatures');
 
 const NUM_CARS = 11;
 
@@ -12,9 +12,26 @@ function notifyIfDriverOutOfRange() {
 }
 
 function validateCarLocation(carData) {
-  features = getOrderedCarLocAndPolygonFromFeatures(JSON.parse(carData).features);
+  var data = JSON.parse(carData);
+  if (!data) {
+    sendEmailToEng(
+      'API Failure: Expected object, but received: ' + data,
+      'ALERT: API Failure'
+    );
+  }
+
+  var features = getOrderedCarLocAndPolygonFromFeatures(
+    JSON.parse(carData).features
+  );
   if (isCarOutsideRange(features)) {
-    sendEmailToEng(features[0].geometry.coordinates, features[0].properties.id)
+    var carID = features[0].properties.id;
+    var carLoc = features[0].geometry.coordinates;
+    var coordinates = '[' 
+    sendEmailToEng(
+      'Car ' + carID + ' is out of bounds at: [' + carLoc[0] + ', ' +
+      carLoc[1] + ']',
+      'ALERT: OUT OF BOUNDS EXCEPTION for Car: ' + carID
+    );
   }
 }
 
