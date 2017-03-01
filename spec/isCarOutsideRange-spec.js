@@ -151,7 +151,7 @@ describe("isCarOutsideRange function", function() {
           34.01738017414994
         ]
       }
-    }
+    },
   ];
 
   for (var i = 0; i < insidePoints.length; i++) {
@@ -261,4 +261,52 @@ describe("isCarOutsideRange function", function() {
       expect(isCarOutsideRange(data)).toEqual(true);
     });
   }
+
+  var square =  {
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -118.36944580078124,
+            33.99916579100914
+          ],
+          [
+            -118.26988220214844,
+            33.99916579100914
+          ],
+          [
+            -118.26988220214844,
+            34.07086232376631
+          ],
+          [
+            -118.36944580078124,
+            34.07086232376631
+          ],
+          [
+            -118.36944580078124,
+            33.99916579100914
+          ]
+        ]
+      ]
+    }
+  };
+
+  var pointOnVerticalLine = {
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -118.36944580078124,
+        34.03786668460356
+      ]
+    }
+  };
+
+  it('Expect car on vertical line to be inside', function() {
+    expect(isCarOutsideRange([pointOnVerticalLine, square])).toEqual(false);
+  });
 });
