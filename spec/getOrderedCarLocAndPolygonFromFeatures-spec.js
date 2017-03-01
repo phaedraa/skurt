@@ -22,7 +22,7 @@ describe("getOrderedCarLocAndPolygonFromFeatures function", function() {
     }
   ];
 
-  it('Swaps incorrectly ordered pairs', function() {
+  it('Returns ccorrectly ordered pairs', function() {
     var parsedFeatures = getOrderedCarLocAndPolygonFromFeatures(featuresPass);
     expect(parsedFeatures[0].geometry.type).toEqual('Point');
     expect(parsedFeatures[1].geometry.type).toEqual('Polygon');
