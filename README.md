@@ -12,7 +12,7 @@ To run the program:
 
 -Download this repo
 -Install and save node (globally or locally in this repo)
--In this directory, run `node notifyIfDriverOutOfRange.js
+-In this directory, run `node notifyIfDriverOutOfRange.js`
 
 To run the tests:
 -Download this repo
