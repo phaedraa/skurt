@@ -8,6 +8,7 @@ Skurt Engineering is emailed with an notification and the car's ID and longitude
 and latitude. Should the API fail to return any data, then Skurt Engineering
 will be emailed with the failure and corresponding error message.
 
+
 To run the program:
 
 -Download this repo
@@ -18,6 +19,7 @@ To run the tests:
 -Download this repo
 -Install and save Jasmine (globally or locally in this repo)
 -In this directory, run `jasmine`
+
 
 A few notes:
 
