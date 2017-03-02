@@ -27,7 +27,8 @@ time.
 
 
 
-Helpful Resources
+Helpful Resources:
+
 -geojson.io : This will be very useful with debugging. Copy paste the GeoJSON (equivalent to JSON) returned by the endpoints entirely into the right panel of the site to view the location of the car.
 
 -http://geojson.org/ : If you’re interested in the specification and details of geojson.
