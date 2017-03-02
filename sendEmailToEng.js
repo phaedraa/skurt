@@ -13,7 +13,7 @@ function sendEmailToEng(text, subject) {
   
   let mailOptions = {
     from: '"Phaedra Randolph" <foodandart100@gmail.com>',
-    to: 'phaedra.a.r@gmail.com',
+    to: 'engineering@skurt.com',
     subject: subject,
     text: text,
     html: '<b>' + text + '</b>'
