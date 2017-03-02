@@ -13,7 +13,7 @@ To run the program:
 
 -Download this repo
 -Install and save node (globally or locally in this repo)
--In this directory, run `node notifyIfDriverOutOfRange.js
+-In this directory, run `node notifyIfDriverOutOfRange.js`
 
 To run the tests:
 -Download this repo
@@ -29,6 +29,8 @@ time.
 
 
 
-Helpful Resources
+Helpful Resources:
+
 -geojson.io : This will be very useful with debugging. Copy paste the GeoJSON (equivalent to JSON) returned by the endpoints entirely into the right panel of the site to view the location of the car.
+
 -http://geojson.org/ : If you’re interested in the specification and details of geojson.
