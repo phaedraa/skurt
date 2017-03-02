@@ -4,19 +4,22 @@ function isCarOutsideRange(carAndPolygonFeatures) {
   var carLoc = carData.geometry.coordinates;
   var numHorzRightCrossings = 0;
   var coordinates = polygonData.geometry.coordinates[0];
-  var j = 0;
   for (var i = 0; i < coordinates.length - 1; i++) {
-    j++;
     // Two coordinates that form a single polygonal edge
     var c_1 = coordinates[i];
-    var c_2 = coordinates[j];
+    var c_2 = coordinates[i + 1];
     // check that car location horizontal crossing intercepts with current edge by:
     // 1. checking that car loc is within y bounds of edge 
     // 2. and that car x coord is at least <= to the max x coord of the edge
     // 3. and that it is to the left of the horizontal interception of car loc y
-    if (carLocWithinEdgeYBounds() && carLocLeftOfEdgeXMax()) {
+    if (isCarLocWithinEdgeYBounds() && isCarLocLeftOfEdgeXMax()) {
+      // If car is on horizontal edge, its counted as 'inside' bounds.
+      if (carLoc[0] >= Math.min(c_1[0], c_2[0]) && c_1[1] == c_2[1]) {
+        return false;
+      }
       var x_intercept = getCarXHorzInterceptWithEdge();
-      // If car is on edge or vertex and is thus counted as 'inside' bounds
+      // If car is on edge or vertex, we count it as 'inside' bounds. As such,
+      // we can early return and exit the loop
       if (carLoc[0] == x_intercept) {
         return false;
       }
@@ -33,7 +36,7 @@ function isCarOutsideRange(carAndPolygonFeatures) {
 
   function getCarXHorzInterceptWithEdge() {
     // Using: y = m * x + b
-    // x_intercept = (y_relative / slope) + x_shift; as we don't know 'b'
+    // x_intercept = (y_relative / slope) + x_relative
     if (c_2[0] - c_1[0] == 0) {
       return c_1[0];
     }
@@ -42,11 +45,11 @@ function isCarOutsideRange(carAndPolygonFeatures) {
     return ((carLoc[1] - c_1[1]) / slope + c_1[0]);
   }
   
-  function carLocLeftOfEdgeXMax() {
+  function isCarLocLeftOfEdgeXMax() {
     return carLoc[0] <= Math.max(c_1[0], c_2[0]);
   }
   
-  function carLocWithinEdgeYBounds() {
+  function isCarLocWithinEdgeYBounds() {
     return carLoc[1] >= Math.min(c_1[1], c_2[1])
       && carLoc[1] <= Math.max(c_1[1], c_2[1]);
   }

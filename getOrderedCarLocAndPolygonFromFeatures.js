@@ -6,8 +6,8 @@ function getOrderedCarLocAndPolygonFromFeatures(features) {
     throw new TypeError('API missing either Point or Polygon Data.');
   }
 
-  var feat1Type = features[0].geometry.type;
-  var feat2Type = features[1].geometry.type;
+  var feat1Type = features[0].geometry &&  features[0].geometry.type;
+  var feat2Type = features[1].geometry &&  features[1].geometry.type; 
   if (feat1Type == "Point" && feat2Type == "Polygon") {
     validatePolygonAndPoint(features[1].geometry.coordinates[0], features[0].geometry.coordinates)
     return features;
