@@ -1,4 +1,4 @@
-function getOrderedCarLocAndPolygonFromFeatures(features) {
+function getInfoFromFeatures(features) {
   // Cannot guarantee that the features list will always maintain
   // order of point object first, and polygon second, nor that 
   // it will always contain both a point and polygon
@@ -38,4 +38,4 @@ function getOrderedCarLocAndPolygonFromFeatures(features) {
   }
 }
 
-module.exports = getOrderedCarLocAndPolygonFromFeatures;
+module.exports = getInfoFromFeatures;

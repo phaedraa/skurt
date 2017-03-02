@@ -1,4 +1,4 @@
-var getOrderedCarLocAndPolygonFromFeatures = require('./getOrderedCarLocAndPolygonFromFeatures');
+var getInfoFromFeatures = require('./getInfoFromFeatures');
 var getSkurtCarData = require('./getSkurtCarData.js');
 var isCarOutsideRange = require('./isCarOutsideRange.js');
 var sendEmailToEng = require('./sendEmailToEng.js');
@@ -19,7 +19,7 @@ function validateCarLocation(carData) {
     );
   }
 
-  var features = getOrderedCarLocAndPolygonFromFeatures(
+  var features = getInfoFromFeatures(
     JSON.parse(carData).features
   );
   if (isCarOutsideRange(features)) {
